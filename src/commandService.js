@@ -43,7 +43,9 @@ module.exports = {
     },
 
     allTimeStandings: async (msg, contestants) => {
-        let query = contestantDb.find({});
+        let query = contestantDb.find({
+            groupId: msg.chat.id
+        });
         let result = await query.exec();
         
         if(result.length === 0) {
@@ -69,7 +71,9 @@ module.exports = {
     },
 
     weekStandings: async (msg, contestants) => {
-        let query = contestantDb.find({});
+        let query = contestantDb.find({
+            groupId: msg.chat.id
+        });
         let result = await query.exec();
         
         if(result.length === 0) {
