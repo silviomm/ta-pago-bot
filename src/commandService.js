@@ -68,18 +68,15 @@ module.exports = {
         return resp;
     },
 
-    weekStandings: (msg, contestants) => {
-
-        if(contestants.size === 0) {
+    weekStandings: async (msg, contestants) => {
+        let query = contestantDb.find({});
+        let result = await query.exec();
+        
+        if(result.length === 0) {
             return `Só tem peidão aqui... ${utils.decode_utf8(utils.poop)}`;
         }
 
-        var arr = [];
-        contestants.forEach(c => {
-            arr.push(c);
-        });
-
-        arr.sort((c1, c2) => {
+        result.sort((c1, c2) => {
             if (c1.weeklyCount < c2.weeklyCount) {
                 return 1;
             }
@@ -90,7 +87,7 @@ module.exports = {
         });
 
         var resp = ``;
-        arr.forEach(c => {
+        result.forEach(c => {
             resp += `${utils.muscleCount(c.weeklyCount)} - @${c.username}\n`;
         });
 

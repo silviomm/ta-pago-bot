@@ -11,8 +11,8 @@ var commandService = require('./src/commandService');
 const Util = require('./src/util');
 const utils = new Util();
 
-bot.onText(/\/week_standings/, (msg) => {
-    var resp = commandService.weekStandings(msg, contestants);
+bot.onText(/\/week_standings/, async (msg) => {
+    var resp = await commandService.weekStandings(msg, contestants);
     utils.response(bot, msg.chat.id, resp);
 });
 
