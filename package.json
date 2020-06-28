@@ -1,0 +1,28 @@
+{
+  "name": "ta-pago-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/silviomm/ta-pago-bot.git"
+  },
+  "author": "silviomm",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/silviomm/ta-pago-bot/issues"
+  },
+  "homepage": "https://github.com/silviomm/ta-pago-bot#readme",
+  "dependencies": {
+    "mongoose": "^5.9.20",
+    "node-schedule": "^1.3.2",
+    "node-telegram-bot-api": "^0.50.0"
+  },
+  "engines": {
+    "node": "14.3.0"
+  }
+}
