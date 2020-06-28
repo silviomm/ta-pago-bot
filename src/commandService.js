@@ -43,16 +43,14 @@ module.exports = {
     },
 
     allTimeStandings: async (msg, contestants) => {
-
-        if(contestants.size === 0) {
+        let query = contestantDb.find({});
+        let result = await query.exec();
+        
+        if(result.length === 0) {
             return `Só tem peidão aqui... ${utils.decode_utf8(utils.poop)}`;
         }
 
-        var arr = [];
-        contestants.forEach(c => {
-            arr.push(c);
-        });
-        arr.sort((c1, c2) => {
+        result.sort((c1, c2) => {
             if (c1.totalCount < c2.totalCount) {
                 return 1;
             }
@@ -63,7 +61,7 @@ module.exports = {
         });
 
         var resp = ``;
-        arr.forEach(c => {
+        result.forEach(c => {
             resp += `${utils.muscleCount(c.totalCount)} - @${c.username}\n`;
         });
 
