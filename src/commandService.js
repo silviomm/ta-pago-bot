@@ -1,5 +1,8 @@
 const Util = require('./util');
 const utils = new Util();
+const mongoose = require('mongoose')
+const contestantT = require("./db/contestant");
+// let contestantT = mongoose.model('Contestants', contestantSchema);
 
 module.exports = {
 
@@ -27,8 +30,20 @@ module.exports = {
     },
 
     allTimeStandings: (contestants) => {
+
+        contestantT.create({
+            weeklyCount: 1,
+            totalCount: 3,
+            username: 'silviomm',
+            startWeek: new Date(),
+            endWeek: new Date()
+        }, (err, con) => {
+            if(err) console.log(err);
+            else console.log(con);
+        })
+
         if(contestants.size === 0) {
-            return `Só tem peidão aqui... ${utils.decode_utf8(poop)}`;
+            return `Só tem peidão aqui... ${utils.decode_utf8(utils.poop)}`;
         }
 
         var arr = [];
