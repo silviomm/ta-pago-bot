@@ -6,6 +6,9 @@ let contestant = new Schema(
     username: {
         type: String
     },
+    groupId: {
+        type: String
+    },
     weeklyCount: {
         type: Number
     },

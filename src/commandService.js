@@ -1,46 +1,48 @@
 const Util = require('./util');
 const utils = new Util();
-const mongoose = require('mongoose')
-const contestantT = require("./db/contestant");
-// let contestantT = mongoose.model('Contestants', contestantSchema);
+const contestantDb = require("./db/contestant");
+const contestant = require('./db/contestant');
 
 module.exports = {
 
-    photoMsg: (msg, contestants) => {
+    photoMsg: async (msg, contestants) => {
         if (msg.photo !== undefined && msg.photo?.length > 0 && utils.isTaPagoValidMsg(msg.caption)) {
-            let contestant = contestants.get(msg.from.id);
-            
-            if(contestant === undefined) {
-                contestant = {
-                    username: msg.from.username,
+                
+            let query = contestantDb.find({
+                username: msg.from.username,
+                groupId: msg.chat.id
+            });
+            let result = await query.exec();
+            let contestant;
+            if(result.length === 0) {
+                result = await contestantDb.create({
                     weeklyCount: 0,
-                    totalCount: 0
-                }
+                    totalCount: 0,
+                    username: msg.from.username,
+                    groupId: msg.chat.id
+                });
+                if(result.length === 0) throw new Exception('could not create contestant');
+                contestant = result;
+            }
+            else {
+                contestant = result[0];
             }
 
             contestant.startWeek = utils.getStartWeek();
             contestant.endWeek = utils.getEndWeek();
             contestant.totalCount++;
             contestant.weeklyCount = utils.weeklyCountCheck(contestant);
+
+            query = contestantDb.findByIdAndUpdate(contestant._id, contestant);
+            result = await query.exec();
     
-            contestants.set(msg.from.id, contestant);
-    
+            console.log('oie')
+
             return `BIRL! Boa @${msg.from.username} ${utils.decode_utf8(utils.muscle)}`;
         }
     },
 
-    allTimeStandings: (contestants) => {
-
-        contestantT.create({
-            weeklyCount: 1,
-            totalCount: 3,
-            username: 'silviomm',
-            startWeek: new Date(),
-            endWeek: new Date()
-        }, (err, con) => {
-            if(err) console.log(err);
-            else console.log(con);
-        })
+    allTimeStandings: async (msg, contestants) => {
 
         if(contestants.size === 0) {
             return `Só tem peidão aqui... ${utils.decode_utf8(utils.poop)}`;

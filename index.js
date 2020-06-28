@@ -16,13 +16,13 @@ bot.onText(/\/week_standings/, (msg) => {
     utils.response(bot, msg.chat.id, resp);
 });
 
-bot.onText(/\/all_time_standings/, (msg) => {
-    var resp = commandService.allTimeStandings(msg, contestants);
+bot.onText(/\/all_time_standings/, async (msg) => {
+    var resp = await commandService.allTimeStandings(msg, contestants);
     utils.response(bot, msg.chat.id, resp);
 });
 
-bot.on('message', (msg) => { 
-   var resp = commandService.photoMsg(msg, contestants);
+bot.on('message', async (msg) => { 
+   var resp = await commandService.photoMsg(msg, contestants);
    utils.response(bot, msg.chat.id, resp); 
 });
 
