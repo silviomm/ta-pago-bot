@@ -1,11 +1,10 @@
 const Util = require('./util');
 const utils = new Util();
 const contestantDb = require("./db/contestant");
-const contestant = require('./db/contestant');
 
 module.exports = {
 
-    photoMsg: async (msg, contestants) => {
+    photoMsg: async (msg) => {
         if (msg.photo !== undefined && msg.photo?.length > 0 && utils.isTaPagoValidMsg(msg.caption)) {
                 
             let query = contestantDb.find({
@@ -42,7 +41,7 @@ module.exports = {
         }
     },
 
-    allTimeStandings: async (msg, contestants) => {
+    allTimeStandings: async (msg) => {
         let query = contestantDb.find({
             groupId: msg.chat.id
         });
@@ -70,7 +69,7 @@ module.exports = {
         return resp;
     },
 
-    weekStandings: async (msg, contestants) => {
+    weekStandings: async (msg) => {
         let query = contestantDb.find({
             groupId: msg.chat.id
         });
