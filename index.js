@@ -27,7 +27,7 @@ bot.on('message', async (msg) => {
 const server = require('./src/server');
 server.init();
 
-const scheduler = require('./src/scheduler-call');
-scheduler.schedule();
+// const scheduler = require('./src/scheduler-call');
+// scheduler.schedule();
 
 const mongo = require('./src/db/mongo');
