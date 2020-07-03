@@ -63,7 +63,7 @@ module.exports = {
 
         var resp = ``;
         result.forEach(c => {
-            resp += `${utils.muscleCount(c.totalCount)} - @${c.username}\n`;
+            resp += `${c.totalCount}x ${utils.decode_utf8(utils.muscle)} - ${c.username}\n`;
         });
 
         return resp;
@@ -91,7 +91,7 @@ module.exports = {
 
         var resp = ``;
         result.forEach(c => {
-            resp += `${utils.muscleCount(c.weeklyCount)} - @${c.username}\n`;
+            resp += `${c.weeklyCount}x ${utils.decode_utf8(utils.muscle)} - ${c.username}\n`;
         });
 
         return resp;
